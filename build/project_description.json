@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "nimble_gatt_server",
-    "project_version":    "1",
+    "project_version":    "873de3b-dirty",
     "project_path":       "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server",
     "idf_path":           "C:/Users/verce/esp/v5.5/esp-idf",
     "build_dir":          "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build",
@@ -890,12 +890,12 @@
             "dir": "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main",
             "type": "LIBRARY",
             "lib": "__idf_main",
-            "reqs": [ "imu" ],
-            "priv_reqs": [ "bt", "nvs_flash", "esp_driver_gpio", "espressif__led_strip" ],
+            "reqs": [ "imu", "app_update" ],
+            "priv_reqs": [ "bt", "nvs_flash", "esp_driver_gpio", "spi_flash", "espressif__led_strip" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__led_strip" ],
             "file": "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/src/gap.c", "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/src/gatt_svc.c", "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/src/sensor_task.c", "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/main.c" ],
+            "sources": [ "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/src/gap.c", "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/src/gatt_svc.c", "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/src/sensor_task.c", "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/src/dfu_service.c", "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/main.c" ],
             "include_dirs": [ "include" ]
         },
         "mbedtls": {
@@ -2367,8 +2367,8 @@
             "prefix": "idf",
             "dir": "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main",
             "lib": "__idf_main",
-            "reqs": [ "imu" ],
-            "priv_reqs": [ "bt", "nvs_flash", "esp_driver_gpio", "espressif__led_strip" ],
+            "reqs": [ "imu", "app_update" ],
+            "priv_reqs": [ "bt", "nvs_flash", "esp_driver_gpio", "spi_flash", "espressif__led_strip" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__led_strip" ],
             "include_dirs": [ "include" ]

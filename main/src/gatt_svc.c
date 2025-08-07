@@ -1,5 +1,5 @@
 /*
- * gatt_svc.c ── “GloveRaw” GATT service
+ * gatt_svc.c ── "GloveRaw" GATT service
  *   Service 0xFFF0
  *   Char    0xFFF1  – 20-byte notify payload (IMU raw)
  */
@@ -22,8 +22,7 @@ uint16_t g_raw_val_handle = 0;
 /* --------------------------------------------------------------------------
  *  Dummy access-callback (notify-only char – no read / write expected)
  * --------------------------------------------------------------------------*/
-static int
-dummy_access(uint16_t conn_handle,
+static int dummy_access(uint16_t conn_handle,
              uint16_t attr_handle,
              struct ble_gatt_access_ctxt *ctxt,
              void *arg)
@@ -38,7 +37,6 @@ static const struct ble_gatt_svc_def RAW_SVCS[] = {
     {
         .type  = BLE_GATT_SVC_TYPE_PRIMARY,
         .uuid  = &UUID_SVC.u,
-
         .characteristics = (struct ble_gatt_chr_def[]) {
             {   /* 0xFFF1 – IMU raw data */
                 .uuid       = &UUID_CHAR.u,
@@ -68,7 +66,8 @@ void gatt_svc_register(void)
         gatt_svc_registered = true;
     }
 
-    ESP_ERROR_CHECK( ble_gatts_start() );
+    /* NOTE: ble_gatts_start() is now called in main.c on_stack_sync() */
+    /* This ensures it's only called once after all services are registered */
 
-    ESP_LOGI(TAG, "GloveRaw ready; val_handle=0x%04X", g_raw_val_handle);
+    ESP_LOGI(TAG, "GloveRaw service registered; val_handle=0x%04X", g_raw_val_handle);
 }
