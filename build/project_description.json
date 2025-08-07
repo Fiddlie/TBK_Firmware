@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "nimble_gatt_server",
-    "project_version":    "873de3b-dirty",
+    "project_version":    "279cc17-dirty",
     "project_path":       "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server",
     "idf_path":           "C:/Users/verce/esp/v5.5/esp-idf",
     "build_dir":          "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build",
