@@ -10,18 +10,18 @@ if(NOT EXISTS "C:/Users/verce/esp/v5.5/esp-idf/components/bootloader/subproject"
   file(MAKE_DIRECTORY "C:/Users/verce/esp/v5.5/esp-idf/components/bootloader/subproject")
 endif()
 file(MAKE_DIRECTORY
-  "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/bootloader"
-  "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/bootloader-prefix"
-  "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/bootloader-prefix/tmp"
-  "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/bootloader-prefix/src/bootloader-stamp"
-  "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/bootloader-prefix/src"
-  "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/bootloader"
+  "C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/bootloader-prefix"
+  "C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/bootloader-prefix/tmp"
+  "C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/bootloader-prefix/src"
+  "C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

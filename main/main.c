@@ -12,7 +12,9 @@
 #include "host/ble_hs.h"
 #include "nimble/nimble_port.h"
 #include "nimble/nimble_port_freertos.h"
-#include "esp_ota_ops.h"  
+#include "esp_ota_ops.h"
+#include "esp_sleep.h"
+#include "battery.h"
 
 /* ------------------------------------------------------------------ */
 #define TAG "MAIN"
@@ -86,9 +88,20 @@ static void nimble_host_task(void *arg)
 /* ------------------------------------------------------------------ */
 void app_main(void)
 {
+    /* Early LED initialization for button wake */
+    esp_sleep_wakeup_cause_t wakeup = esp_sleep_get_wakeup_cause();
+    if (wakeup == ESP_SLEEP_WAKEUP_UNDEFINED ||
+        wakeup == ESP_SLEEP_WAKEUP_GPIO ||
+        wakeup == ESP_SLEEP_WAKEUP_EXT0 ||
+        wakeup == ESP_SLEEP_WAKEUP_EXT1) {
+        /* Quick LED setup without full battery init */
+        extern void battery_early_led_init(void);
+        battery_early_led_init();
+    }
+
     /* Print firmware info on boot */
     print_current_firmware_info();
-    
+
     /* NVS (required by controller and OTA) */
     esp_err_t err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES ||
@@ -100,7 +113,14 @@ void app_main(void)
     /* Initialize DFU service before BLE stack */
     dfu_service_init();
 
-    /* Start sensor task */
+    /* Initialize battery management first (includes I2C init) */
+    ESP_LOGI(TAG, "Initializing battery management...");
+    esp_err_t ret = battery_init();
+    if (ret != ESP_OK) {
+        ESP_LOGW(TAG, "Battery management init failed, continuing anyway");
+    }
+    
+    /* Start sensor task after battery init */
     sensor_task_create();
 
     /* NimBLE low-level */
@@ -133,3 +153,4 @@ static void nimble_host_cfg_init(void)
 
     ble_store_config_init();
 }
+

@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.16)
 
 if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "")
   file(REMOVE_RECURSE
+  "TBK_Firmware.bin"
+  "TBK_Firmware.map"
   "bootloader\\bootloader.bin"
   "bootloader\\bootloader.elf"
   "bootloader\\bootloader.map"
@@ -16,9 +18,7 @@ if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "")
   "flasher_args.json"
   "ldgen_libraries"
   "ldgen_libraries.in"
-  "nimble_gatt_server.bin"
-  "nimble_gatt_server.map"
-  "project_elf_src_esp32.c"
+  "project_elf_src_esp32c3.c"
   "x509_crt_bundle.S"
   )
 endif()

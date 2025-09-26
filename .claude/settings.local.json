@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(C:\\Users\\verce\\esp\\v5.5\\esp-idf\\components\\soc\\esp32c3/**)",
+      "Read(C:\\Users\\verce\\esp\\v5.5\\esp-idf\\components\\soc\\esp32c3/**)",
+      "Bash(sed:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

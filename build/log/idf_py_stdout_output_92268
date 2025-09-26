@@ -1,0 +1,35 @@
+Command: ninja all
+[1/15] Performing build step for 'bootloader'
+[1/1] C:\Windows\system32\cmd.exe /C "cd /D C:\Users\verce\Desktop\Boxing_Demo\TBK_Firmware\build\bootloader\esp-idf\esptool_py && C:\Users\verce\.espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe C:/Users/verce/esp/v5.5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/bootloader/bootloader.bin"
+Bootloader binary size 0x5240 bytes. 0x2dc0 bytes (36%) free.
+[2/15] No install step for 'bootloader'
+[3/15] Completed 'bootloader'
+[4/15] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/src/battery.c.obj
+C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/main/src/battery.c: In function 'bq27427_read_status':
+C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/main/src/battery.c:1281:21: warning: unused variable 'soc_src_str' [-Wunused-variable]
+ 1281 |         const char *soc_src_str = (soc_source == 0) ? "TI_GAUGE" : (soc_source == 1 ? "GAUGE_RM_FCC" : "VOLTAGE_MAP");
+      |                     ^~~~~~~~~~~
+C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/main/src/battery.c: In function 'led_control_task':
+C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/main/src/battery.c:1665:21: warning: unused variable 'loop_count' [-Wunused-variable]
+ 1665 |     static uint32_t loop_count = 0;
+      |                     ^~~~~~~~~~
+C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/main/src/battery.c:1664:23: warning: variable 'last_loop_tick' set but not used [-Wunused-but-set-variable]
+ 1664 |     static TickType_t last_loop_tick = 0;
+      |                       ^~~~~~~~~~~~~~
+[5/15] Building C object esp-idf/imu/CMakeFiles/__idf_imu.dir/imu.c.obj
+[6/15] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/src/gatt_svc.c.obj
+[7/15] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/src/sensor_task.c.obj
+[8/15] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/src/gap.c.obj
+[9/15] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+[10/15] Linking C static library esp-idf\imu\libimu.a
+[11/15] Linking C static library esp-idf\main\libmain.a
+[12/15] Generating esp-idf/esp_system/ld/sections.ld
+[13/15] Linking CXX executable TBK_Firmware.elf
+[14/15] Generating binary image from built executable
+esptool.py v4.9.1
+Creating esp32c3 image...
+Merged 2 ELF sections
+Successfully created esp32c3 image.
+Generated C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/TBK_Firmware.bin
+[15/15] C:\Windows\system32\cmd.exe /C "cd /D C:\Users\verce\Desktop\Boxing_Demo\TBK_Firmware\build\esp-idf\esptool_py && C:\Users\verce\.espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe C:/Users/verce/esp/v5.5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/partition_table/partition-table.bin C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/TBK_Firmware.bin"
+TBK_Firmware.bin binary size 0x9fcb0 bytes. Smallest app partition is 0x100000 bytes. 0x60350 bytes (38%) free.

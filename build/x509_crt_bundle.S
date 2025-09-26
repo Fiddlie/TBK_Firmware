@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

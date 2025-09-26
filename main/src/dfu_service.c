@@ -1,15 +1,9 @@
-/*
- * dfu_service.c - Device Firmware Update over BLE (Simplified)
- * 
- * This implements a simple DFU service for ESP32 using NimBLE
- */
-
 #include "dfu_service.h"
 #include "esp_log.h"
 #include "esp_ota_ops.h"
 #include "esp_system.h"
 #include "nvs_flash.h"
-#include "host/ble_hs.h"
+#include "ble_common.h"
 
 static const char *TAG = "DFU";
 
@@ -39,11 +33,9 @@ static struct {
     .conn_handle = BLE_HS_CONN_HANDLE_NONE
 };
 
-/* Characteristic value handles - will be set by gatt registration */
 static uint16_t dfu_control_handle = 0;
 static uint16_t dfu_packet_handle = 0;
 
-/* Send DFU response notification */
 static void dfu_send_response(uint16_t conn_handle, uint8_t cmd, uint8_t status)
 {
     if (dfu_control_handle == 0) {
@@ -59,7 +51,6 @@ static void dfu_send_response(uint16_t conn_handle, uint8_t cmd, uint8_t status)
     }
 }
 
-/* Handle DFU control commands */
 static int dfu_control_cb(uint16_t conn_handle, uint16_t attr_handle,
                          struct ble_gatt_access_ctxt *ctxt, void *arg)
 {
@@ -237,13 +228,12 @@ static const struct ble_gatt_svc_def dfu_service_defs[] = {
                 .access_cb = dfu_packet_cb,
                 .flags = BLE_GATT_CHR_F_WRITE_NO_RSP,
             },
-            { 0 } /* Terminator */
+            { 0 } 
         },
     },
-    { 0 } /* Terminator */
+    { 0 } 
 };
 
-/* Initialize DFU service */
 void dfu_service_init(void)
 {
     dfu_ctx.state = DFU_STATE_IDLE;
@@ -269,7 +259,6 @@ int dfu_service_register(void)
     return 0;
 }
 
-/* Check if DFU is active */
 bool dfu_is_active(void)
 {
     return dfu_ctx.state != DFU_STATE_IDLE;

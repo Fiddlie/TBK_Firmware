@@ -3,4 +3,4 @@ source "C:/Users/verce/esp/v5.5/esp-idf/components/esp_app_format/Kconfig.projbu
 source "C:/Users/verce/esp/v5.5/esp-idf/components/esp_rom/Kconfig.projbuild"
 source "C:/Users/verce/esp/v5.5/esp-idf/components/esptool_py/Kconfig.projbuild"
 source "C:/Users/verce/esp/v5.5/esp-idf/components/partition_table/Kconfig.projbuild"
-source "C:/Users/verce/Desktop/Boxing_Demo/NimBLE_GATT_Server/main/Kconfig.projbuild"
+source "C:/Users/verce/Desktop/Boxing_Demo/TBK_Firmware/main/Kconfig.projbuild"

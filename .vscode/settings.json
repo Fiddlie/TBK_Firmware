@@ -8,15 +8,15 @@
     "target/esp32.cfg"
   ],
   "idf.customExtraVars": {
-    "IDF_TARGET": "esp32"
+    "IDF_TARGET": "esp32c3"
   },
   "clangd.path": "C:\\Users\\verce\\.espressif\\tools\\esp-clang\\esp-19.1.2_20250312\\esp-clang\\bin\\clangd.exe",
   "clangd.arguments": [
     "--background-index",
-    "--query-driver=C:\\Users\\verce\\.espressif\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32-elf-gcc.exe",
-    "--compile-commands-dir=c:\\Users\\verce\\Desktop\\Boxing_Demo\\NimBLE_GATT_Server\\build"
+    "--query-driver=C:\\Users\\verce\\.espressif\\tools\\riscv32-esp-elf\\esp-14.2.0_20241119\\riscv32-esp-elf\\bin\\riscv32-esp-elf-gcc.exe",
+    "--compile-commands-dir=c:\\Users\\verce\\Desktop\\Boxing_Demo\\TBK_Firmware\\build"
   ],
-  "idf.portWin": "COM9",
+  "idf.portWin": "COM10",
   "files.associations": {
     "ble_gatt.h": "c",
     "imu.h": "c",
