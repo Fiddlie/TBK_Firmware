@@ -15,9 +15,8 @@ static const char *TAG = "I2C_SHIM";
 #define BQ21080_FORCE_ADDR 0x6A
 #endif
 
-/* Global helper expected by sensor_task.c
- * Signature matches legacy usage: write 'len' bytes to register 'reg'.
- * Writes to fixed address BQ21080_FORCE_ADDR. */
+/*  Writes 'len' bytes to register 'reg'.
+ *  Writes to fixed address BQ21080_FORCE_ADDR. */
 esp_err_t i2c_write_reg(uint8_t reg, const uint8_t *data, size_t len)
 {
     const uint8_t addr = BQ21080_FORCE_ADDR;

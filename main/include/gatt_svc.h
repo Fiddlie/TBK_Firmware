@@ -8,7 +8,7 @@ extern "C" {
 #endif
 
 void     gatt_svc_register(void);       /* called once after stack sync   */
-extern   uint16_t g_raw_val_handle;     /* written by gatt_svc_register() */
+extern   uint16_t g_raw_val_handle;   
 
 #ifdef __cplusplus
 }

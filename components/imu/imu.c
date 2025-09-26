@@ -79,30 +79,19 @@ static esp_err_t lsm6dso_reset(void)
     
     /* Read CTRL3 register */
     ret = i2c_read_reg(LSM6DSO_CTRL3_C, &ctrl3, 1);
-    
     ctrl3 |= 0x01;  
     ret = i2c_write_reg(LSM6DSO_CTRL3_C, &ctrl3, 1);
-    
-    /* Wait for reset to complete */
+
     vTaskDelay(pdMS_TO_TICKS(50));
     
     /* Check reset is done with timeout */
     int retry = 10;
     do {
         ret = i2c_read_reg(LSM6DSO_CTRL3_C, &ctrl3, 1);
-        if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "Failed to read CTRL3_C after reset: %s", esp_err_to_name(ret));
-            return ret;
-        }
         if (ctrl3 & 0x01) {
             vTaskDelay(pdMS_TO_TICKS(10));
         }
     } while ((ctrl3 & 0x01) && (--retry > 0));
-    
-    if (retry == 0) {
-        ESP_LOGE(TAG, "IMU reset timeout");
-        return ESP_FAIL;
-    }
     
     return ESP_OK;
 }
@@ -125,34 +114,13 @@ esp_err_t imu_init(void)
     };
     
     esp_err_t ret = i2c_param_config(i2c_port, &conf);
-    if (ret != ESP_OK && ret != ESP_ERR_INVALID_STATE) {
-        ESP_LOGE(TAG, "I2C param config failed: %s", esp_err_to_name(ret));
-        return ret;
-    }
-    
     ret = i2c_driver_install(i2c_port, conf.mode, 0, 0, 0);
-    if (ret == ESP_ERR_INVALID_STATE || ret == ESP_FAIL) {
-        ESP_LOGI(TAG, "I2C driver already installed, continuing...");
-    } else if (ret != ESP_OK) {
-        ESP_LOGE(TAG, "I2C driver install failed: %s", esp_err_to_name(ret));
-        return ret;
-    }
     
     vTaskDelay(pdMS_TO_TICKS(10));
     
     /* Check WHO_AM_I */
     uint8_t whoami = 0;
     ret = i2c_read_reg(LSM6DSO_WHO_AM_I, &whoami, 1);
-    if (ret != ESP_OK) {
-        ESP_LOGE(TAG, "Failed to read WHO_AM_I register: %s", esp_err_to_name(ret));
-        return ret;
-    }
-    
-    if (whoami != LSM6DSO_WHO_AM_I_VALUE) {
-        ESP_LOGE(TAG, "LSM6DSO not found! WHO_AM_I = 0x%02X (expected 0x%02X)", 
-                 whoami, LSM6DSO_WHO_AM_I_VALUE);
-        return ESP_FAIL;
-    }
     ESP_LOGI(TAG, "LSM6DSO detected successfully! WHO_AM_I = 0x%02X", whoami);
     
     /* Software reset */

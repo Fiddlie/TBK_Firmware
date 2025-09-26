@@ -516,9 +516,11 @@ static __attribute__((unused)) esp_err_t bq27427_fix_current_sensing(void)
     ESP_LOGI(TAG, "Soft reset to apply changes...");
     bq27427_control_cmd(BQ27427_CTRL_SOFT_RESET);
     vTaskDelay(pdMS_TO_TICKS(300));
+    
     /* Start gauging (IT_ENABLE) so SOC can report without a learn cycle */
     bq27427_control_cmd(BQ27427_CTRL_IT_ENABLE);
     vTaskDelay(pdMS_TO_TICKS(100));
+
     /* Trigger SOC update as if battery inserted */
     bq27427_control_cmd(BQ27427_CTRL_BAT_INSERT);
     vTaskDelay(pdMS_TO_TICKS(200));
@@ -704,11 +706,6 @@ static esp_err_t bq21080_diagnose(void)
     
     if (!found) {
         ESP_LOGE(TAG, "BQ21080 not found at detected address 0x%02X", s_bq21080_addr);
-        ESP_LOGE(TAG, "Hardware check needed:");
-        ESP_LOGE(TAG, "  1. Check if BQ21080 is soldered");
-        ESP_LOGE(TAG, "  2. Check SDA/SCL connections");
-        ESP_LOGE(TAG, "  3. Check power supply to BQ21080");
-        ESP_LOGE(TAG, "  4. Check CE pin (must be HIGH to enable)");
         return ESP_FAIL;
     }
     
@@ -777,8 +774,6 @@ static esp_err_t bq21080_diagnose(void)
     uint8_t vbat_ctrl = regs[6];
     int vbat_reg_mv = 3500 + ((vbat_ctrl >> 1) & 0x3F) * 20;  // 3.5V + 20mV per LSB
     ESP_LOGI(TAG, "  Battery Regulation Voltage: %dmV", vbat_reg_mv);
-    
-    ESP_LOGI(TAG, "===============================================");
     
     return ESP_OK;
 }
@@ -1545,7 +1540,7 @@ static void led_control_task(void *arg)
             solid_yellow_until = 0;
         }
 
-        /* Step 1: Check if system is shutting down first (highest priority) */
+        /* Check if system is shutting down first (highest priority) */
         if (system_shutting_down) {
             /* Turn off all LEDs using PWM */
             ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0);
@@ -1613,8 +1608,8 @@ static void led_control_task(void *arg)
                     ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
                     ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1);
                     ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2);
-                    tick_counter++;  /* Still increment counter */
-                    continue;  /* Skip rest of loop to handle shutdown next iteration */
+                    tick_counter++; 
+                    continue;  
                 }
                 /* Still pressing but not yet 3 seconds - just wait, no LED */
             } else if (!pressed && btn_was_pressed) {
@@ -2259,8 +2254,8 @@ esp_err_t battery_init(void)
             i2c_cmd_link_delete(cmd);
             ESP_LOGI(TAG, "BQ27427 BAT_INSERT command sent");
             
-            vTaskDelay(pdMS_TO_TICKS(500));  // Give BQ27427 time to settle after BAT_INSERT
-        }  /* end ret == ESP_OK block */
+            vTaskDelay(pdMS_TO_TICKS(500));  
+        }  
         
         /* If fuel gauge IC found, handle charger and start monitor task */
         if (battery_ic_found) {
@@ -2273,11 +2268,10 @@ esp_err_t battery_init(void)
             ESP_LOGW(TAG, "BQ21080 init failed, charging control will be limited");
         }
         
-        /* Continue setup even when the charger IC is absent */
         }
         /* Start battery monitor task (higher prio to stay responsive with BLE active) */
         xTaskCreate(battery_monitor_task, "battery_mon", 3072, NULL, 8, &battery_monitor_task_handle);
-    }  /* end if (i2c_read_reg16(...) == ESP_OK) */
+    }  
     else {
         ESP_LOGW(TAG, "BQ27427 not found - battery monitoring disabled");
         ESP_LOGW(TAG, "LED functions will still work for BLE status");
